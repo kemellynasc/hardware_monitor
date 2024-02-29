@@ -11,14 +11,17 @@ def load_data(file_path):
 
 
 # Função de um gráfico de linha interativo
-def plot_chart(data, column_name):
-    fig = px.line(data, x=data.index, y=column_name, title=f"Consumo de {column_name}")
+def plot_chart(data, metric):
+    fig = px.line(data, x=data.index, y=metric)
+    fig.update_layout(xaxis_title="Medições", yaxis_title="Percentual")
     st.plotly_chart(fig)
 
 
 # Função de construção do histograma
-def plot_histogram(data, column_name):
-    fig_hist = px.histogram(data, x=data.index, y=column_name, nbins=30, title=f"Consumo de {column_name}")
+def plot_histogram(data, metric):
+    # fig_hist = px.histogram(data, x=data.index, y=metric)
+
+    fig_hist = px.bar(data, x=data.index, y=metric)
     st.plotly_chart(fig_hist)
 
 
@@ -32,19 +35,18 @@ def main():
 
     if uploaded_file is not None:
         data = load_data(uploaded_file)
-        st.write("Dados Carregados:")
-        st.write(data)
+        st.write("Dados Carregados:", use_column_width=True)
+        st.table(data)
 
-    # Sidebar para seleção de métrica
-    options = ['CPU (%)', 'RAM (%)', 'Swap (%)']
+        options = data.columns.tolist()
+        selected_options = st.sidebar.multiselect('Selecione as métricas que deseja visualizar:', options)
+        try:
+            plot_chart(data, selected_options)
+            plot_histogram(data, selected_options)
+        except UnboundLocalError:
+            st.error("Por favor, selecione um arquivo CSV")
 
-    selected_options = st.sidebar.selectbox('Selecione as opções desejadas:', options)
 
-    try:
-        plot_histogram(data, selected_options)
-        plot_chart(data, selected_options)
-    except UnboundLocalError:
-        st.error("Por favor, selecione um arquivo CSV")
 
 
 if __name__ == "__main__":
