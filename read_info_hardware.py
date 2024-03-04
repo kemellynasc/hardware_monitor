@@ -9,14 +9,16 @@ import os
 data_atual = datetime.datetime.now()
 
 # formats the date as a part of the archive's name
-nome_do_arquivo = data_atual.strftime("%d%m%Y-%H") + ".csv"
+nome_host = os.uname().nodename
+data_medicao = data_atual.strftime("%d%m%Y-%H")
+nome_arquivo = nome_host + data_medicao + ".csv"
 
-pasta_destino = '/home/fernanda/PycharmProjects/pythonProjectStreamlit/leituras'
+pasta_destino = 'caminho'
 
 if not os.path.exists(pasta_destino):
     os.makedirs(pasta_destino)
 
-caminho_completo = os.path.join(pasta_destino, nome_do_arquivo)
+caminho_completo = os.path.join(pasta_destino, nome_arquivo)
 
 
 # function to get and format the system data
@@ -51,5 +53,5 @@ def main(intervalo_de_medicao, tempo_total):
 
 # Executar o dashboard pelo período de tempo especificado
 if __name__ == "__main__":
-    main(10, 14440)
+    main(10, 600)
 
