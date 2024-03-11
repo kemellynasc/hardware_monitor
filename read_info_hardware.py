@@ -5,15 +5,18 @@ import time
 import os
 
 
-# get the actual date and store in a variable
+# Obtém a data atual e armazena essa data numa variável
 data_atual = datetime.datetime.now()
 
-# formats the date as a part of the archive's name
-nome_host = os.uname().nodename
+# Faz a formatação da data como parte do nome do arquivo
 data_medicao = data_atual.strftime("%d%m%Y-%H")
+
+# Obtém o nome do host
+nome_host = os.uname().nodename
+
 nome_arquivo = nome_host + data_medicao + ".csv"
 
-pasta_destino = 'caminho'
+pasta_destino = 'caminho passando também o IP da máquina destino'
 
 if not os.path.exists(pasta_destino):
     os.makedirs(pasta_destino)
@@ -21,12 +24,11 @@ if not os.path.exists(pasta_destino):
 caminho_completo = os.path.join(pasta_destino, nome_arquivo)
 
 
-# function to get and format the system data
+# Função para obter e formatar a data do sistema
 def buscar_dados_do_sistema():
     ram_percent = psutil.virtual_memory().percent
     swap_percent = psutil.swap_memory().percent
     cpu_percent = psutil.cpu_percent()
-    # clock = psutil.cpu_freq().current
 
     return ram_percent, swap_percent, cpu_percent
 
@@ -47,11 +49,11 @@ def main(intervalo_de_medicao, tempo_total):
     while (time.time() - tempo_inicial_de_medicao) < tempo_total:
         escrever_no_csv(buscar_dados_do_sistema())
 
-        # wait an interval
+        # espera um intervalo de tempo
         time.sleep(intervalo_de_medicao)
 
 
-# Executar o dashboard pelo período de tempo especificado
+# Função para executar o script pelo período especificado
 if __name__ == "__main__":
     main(10, 600)
 
