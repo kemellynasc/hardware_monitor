@@ -3,7 +3,11 @@ import csv
 import datetime
 import time
 import os
+import platform
 
+
+# Obtém o nome do host
+nome_host = platform.node()
 
 # Obtém a data atual e armazena essa data numa variável
 data_atual = datetime.datetime.now()
@@ -11,11 +15,8 @@ data_atual = datetime.datetime.now()
 # Faz a formatação da data como parte do nome do arquivo
 data_medicao = data_atual.strftime("%d%m%Y-%H")
 
-# Obtém o nome do host
-nome_host = os.uname().nodename
-
-nome_arquivo = nome_host + data_medicao + ".csv"
-
+# Define o nome do arquivo que armazenará a leitura e o caminho em que o arquivo será salvo
+nome_arquivo = "Máquina: " + nome_host + "_" + data_medicao + ".csv"
 pasta_destino = 'caminho passando também o IP da máquina destino'
 
 if not os.path.exists(pasta_destino):
@@ -34,7 +35,7 @@ def buscar_dados_do_sistema():
 
 
 def escrever_no_csv(data):
-    with open(caminho_completo, 'a', newline='') as file:
+    with open(caminho_completo, 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(data)
 
@@ -46,9 +47,14 @@ def main(intervalo_de_medicao, tempo_total):
         writer = csv.writer(arquivo)
         writer.writerow(["ram (%)", "swap (%)", "cpu (%)"])
 
-    while (time.time() - tempo_inicial_de_medicao) < tempo_total:
-        escrever_no_csv(buscar_dados_do_sistema())
+    executando = True
 
+    while executando:
+        if (time.time() - tempo_inicial_de_medicao) >= tempo_total:
+            executando = False
+            break
+
+        escrever_no_csv(buscar_dados_do_sistema())
         # espera um intervalo de tempo
         time.sleep(intervalo_de_medicao)
 
