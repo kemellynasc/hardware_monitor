@@ -8,7 +8,7 @@ import csv
 # Obtendo a data para colocar no nome do arquivo
 get_measurement_date = datetime.datetime.now().strftime("%Y_%m_%d")
 
-file_name = f'{get_measurement_date}.csv'
+file_name = f'{get_measurement_date}_{platform.node()}.csv'
 destination_folder = platform.node() # Obtém o nome do dispositivo/máquina
 
 # Criando a pasta
@@ -16,7 +16,17 @@ if not os.path.exists(destination_folder):
     os.makedirs(destination_folder)
 
 # Obtendo o caminho completo do arquivo
-complete_path = os.path.join(destination_folder, file_name)
+complete_path = os.path.join(os.path.abspath('.'), destination_folder, file_name)
+
+# Função para criar arquivo json com os dados do sistema
+"""
+    Essa função deverá criar um arquivo json que vai armazenar
+    uma lista de dados de várias máquinas, pois quando tentarmos
+    exibir algum dado csv, vamos verificar o nome do arquivo e
+    saberemos de qual máquina ele pertence.
+"""
+def json_computer_info():
+    ...
 
 # função para obter as métricas do sistema
 def get_data_system() -> tuple:
@@ -26,16 +36,16 @@ def get_data_system() -> tuple:
     # Utilização da swap
     swap_percent = psutil.swap_memory().percent
     # # Utilização da cache (Windows)
-    # cache_percent = (psutil.virtual_memory().available * 100 / psutil.virtual_memory().total)
+    cache_percent = (psutil.virtual_memory().available * 100 / psutil.virtual_memory().total)
     # CPU
     # Utilização da CPU
     cpu_percent = psutil.cpu_percent()
     # # DISCO
-    # # Taxa de transferência de dados no disco em bytes
-    # disk_info = psutil.disk_io_counters()
-    # disk_transfer_rate = disk_info.read_bytes + disk_info.write_bytes
+    # Taxa de transferência de dados no disco em bytes
+    disk_info = psutil.disk_io_counters()
+    disk_transfer_rate = (disk_info.read_bytes + disk_info.write_bytes)/(1024**3)
     # # Latência de acesso ao disco em ms
-    # disk_latency = disk_info.read_time + disk_info.write_time
+    disk_latency = (disk_info.read_time + disk_info.write_time) / 1000.0
     # # REDE
     # # Velocidade de upload e download da rede em bytes/s
     # net_info = psutil.net_io_counters()
@@ -55,22 +65,21 @@ def get_data_system() -> tuple:
     # # Tempo de execução do sistema
     # system_runtime = datetime.datetime.now() - boot_time
     return (
-        ram_percent, swap_percent, cpu_percent
-        # , 
-        # cache_percent, disk_transfer_rate, disk_latency,
+        ram_percent, swap_percent, cache_percent, cpu_percent, 
+        disk_transfer_rate, disk_latency,
         # net_upload_speed, net_download_speed, net_latency,
         # num_processes, priority, boot_time, uptime, system_runtime
         )
 
+# função para verificar se o arquivo passado já existe
 def check_if_file_exists(datapath: str):
     if not os.path.exists(datapath):
         with open(datapath, 'w', newline='') as file:
             write = csv.writer(file)
             write.writerow(
-                ("ram (%)", "swap (%)", "cpu (%)",
-                # "cache (%)",
-                # "transferencia do disco em bytes",
-                # "latencia do disco em ms", "vel. upload da rede", 
+                ("ram (%)", "swap (%)", "cache (%)", "cpu (%)", 
+                "taxa de transferencia de disco (GB/s)", "taxa de latencia de disco(seg)"
+                # "vel. upload da rede", 
                 # "vel. download da rede", "latencia da rede em ms", 
                 # "processos em execucao", "prioridade de processos",
                 # "tempo inicializacao do sistema", "tempo de resposta do sistema",
@@ -97,4 +106,4 @@ def main(measuring_range: int, total_time: int) -> None:
 
 # Função para executar o script pelo perído especificado
 if __name__ == "__main__":
-    main(10, 600)
+    main(10, 120)
