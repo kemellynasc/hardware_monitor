@@ -194,39 +194,64 @@ def show_disk_data(data: pd.DataFrame) -> None:
         st.error("Não é possível exibir as métricas de Disco")
     st.divider()
 
-def show_footer_page():
+def show_development_team() -> None:
     st.markdown("""
                     <style>
-                        .st-emotion-cache-cnbvxy li {
-                            margin: 10px auto;
-                            padding: 0px;
-                            font-size: 20px;
-                            list-style: none;
+                        .foto {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 100%;
+                            height: auto;
+                            margin-top: 50px;
                         }
+
+                        .foto-content {
+                            width: 120px;
+                            height: 120px;
+                            margin: 40px 60px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 50%;
+                        }
+
                         .st-emotion-cache-cnbvxy a {
-                            color: white;
+                            display: flex;
+                            border: 5px solid rgba(68, 68, 68, 0.6);
+                            border-radius: 50%;
+                            width: 120px;
+                            height: 125px;
                             text-decoration: none;
-                            margin-left: 50px;
+                            color: white;
+                            font-size: 16px;
+                            margin: 10px 60px;
                         }
-                        
-                        ul {
-                            list-style: none;
+
+                        img {
+                            width: 117px;
+                            height: 117px;
+                            border-radius: 50%;
+                            display: block;
+                            margin-bottom: 15px;
                         }
-                        /*
-                        .st-emotion-cache-cnbvxy li:hover {
-                            border: 2px solid crimson;
+
+                        .foto-content div p {
                             
-                        }*/
+                            text-align: center;
+                        }
                         
                         .st-emotion-cache-cnbvxy a:hover {
-                            color: black;
-                            background: white;
+                            color: crimson;
+                            border-color: crimson;
+                            font-weight: bold;
                         }
                         
-                        .container {
-                            display: flex;
-                            justify-content: center;
+                        .foto-content:nth-child(1) img,  .foto-content:nth-child(3) img, .foto-content:nth-child(6) img {
+                            width: 110px;
+                            height: 117px;
                         }
+                        
                         .equipe {
                             text-align: center;
                             font-size: 40px;
@@ -234,19 +259,72 @@ def show_footer_page():
                         }
                     </style>
                     <h3 class="equipe">Equipe Desenvolvedora:</h3>
-                    <div class="container">
-                        <ul>
-                            <li><a target="_blank" href="https://github.com/fhplira"><b>Fernanda Helen de Paula Lira - IFPE Paulista</b></a></li>
-                            <li><a target="_blank" href="https://github.com/Neto-Pereira25"><b>José Pereira da Silva Neto - IFPE Recife</b></a></li>
-                            <li><a target="_blank" href="https://github.com/kemellynasc"><b>Kemelly Nascimento - IFPE Paulista</b></a></li>
-                            <li><a target="_blank" href="https://github.com/nathalialimaa"><b>Nathália de Lima Santos - IFPE Recife</b></a></li>
-                            <li><a target="_blank" href="https://lattes.cnpq.br/5301729624897209"><b>Eraldo Dias - IFPE Paulista</b></a></li>
-                            <li><a target="_blank" href="https://gitlab.com/alsmoreira"><b>Anderson Luiz Souza Moreira - IFPE Recife</b></a></li>
-                            <li><a target="_blank" href="http://lattes.cnpq.br/7139685024425123"><b>Marco Antônio de Oliveira Domingues - IFPE Recife</b></a></li>
-                        </ul>
+                    <div class="foto">
+                        <div class="foto-content">
+                            <div>
+                                <a href="https://github.com/fhplira">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczNjH8i6HMLdKZGwz_kagL9rITfEK912DgFapPrv94IUAcFlD6jHEL-Pfc3xV-CN2eI1oBx4QVsomI3Q_QjwWCtHDmZBBSjpyyD0OxP46m1pXKv9IWPYZjsIXxnsMgYZTho0bz0royFFmR1xevSfuQF0=w460-h460-s-no-gm?authuser=1" alt="foto da integrante Fernanda">
+                                </a>
+                                <p>Fernanda Helen de Paula Lira</p>
+                            </div>
+                        </div>
+                        <div class="foto-content">
+                            <div>
+                                <a href="https://github.com/Neto-Pereira25">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczNhlJifnpp8K4Qgs0p32JT7shEGMC8Tsu0oFokbrzO9HMcbl8JuxGj2lf_oMosn2ELl0eGCxT_Fj3laVI7mRIym3JeetoPpWaXxrKc09T4-9UCw02-3k950L8XGWq4EQH53FWvCL7M1ULZDfjbxuuu0=w586-h879-s-no-gm?authuser=1" alt="foto do integrante José Neto">
+                                </a>
+                                <p>José Pereira da Silva Neto</p>
+                            </div>
+                        </div>
+                        <div class="foto-content">
+                            <div>
+                                <a href="https://github.com/kemellynasc">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczPPZCW4wteKvyHAjecdhYJ5nWk-oR4mbD9mrNWp5vRbqfMil5Dk_AObdnz5BsIxnh-LpAw6eKPsP2S757sI3rrFA4S3IpZ_cDbmL40Q8Lr1QhFnYKrYqPntF0Z-gp4L6DFlkxjGGZwM9Xy2Ppe21VF3=w460-h460-s-no-gm?authuser=1" alt="foto da integrante kemelly">
+                                </a>
+                                <p>Kemelly Nascimento</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="foto">
+                        <div class="foto-content">
+                            <div>
+                                <a href="https://github.com/nathalialimaa">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczNV-TRjeVwwUEpqZmEjT3AHo8Qse4USC4XVxINSm23pxfESrchXZX0BtLaq6dZddkOsZXj0DV7MgMMA-ABFhj2C5p1PeXwx96kYeo-AfaEqAAoZ5slM8Z4XAPWSkgk7VafMV_oMN1NufEEUVRchocQD=w660-h879-s-no-gm?authuser=1" alt="foto da integrante Nathália">
+                                </a>
+                                <p>Nathália de Lima Santos</p>
+                            </div>
+                        </div>
+                        <div class="foto-content">
+                            <div>
+                                <a href="https://lattes.cnpq.br/5301729624897209">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczNBQhn5kaxQKr-poO38V4yEEH2zVKmZTI8nSgCYnrJoidAunahS1CPlJ10d3PDRIEYehd8Cq6st4so3s8-AUUJIilfPfD_C5q39lxDWZHYnD9p8Y3DhWoX1NWS0a1EgeWTYqfAhVYrmPB8vI8HL2zeZ=w305-h400-s-no-gm?authuser=1" alt="foto do integrante Eraldo">
+                                </a>
+                                <p>Eraldo Coelho Dias Junior</p>
+                            </div>
+                        </div>
+                        <div class="foto-content">
+                            <div>
+                                <a href="https://gitlab.com/alsmoreira">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczOoQmA3u8i_VI2cHpHY2DjdplbouL5pHBh8Xq9TXvPzXBnCYN3EOf5yhIW5sP1imAEpJqYBv5_u6l46QL5DmevDdjc1LTv8N171_zHK-clssYsSYJ-t1k2Am0ufPe5nbd55vIIgl3MDAWaO6mB633KR=w200-h200-s-no-gm?authuser=1" alt="foto do integrante Anderson">
+                                </a>
+                                <p>Anderson Luiz Souza Moreira</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="foto">
+                        <div class="foto-content">
+                            <div>
+                                <a href="http://lattes.cnpq.br/7139685024425123">
+                                    <img src="https://lh3.googleusercontent.com/pw/AP1GczPq_FxjERai1dxd8lyHxNlAH7BYFCDEvY0UfHPjFBXhGplXc1oESrbETjR-iAuEISaM7XQhElw14EA9UPDsEX_6sSvAPN5HHw56Do3LrhEUy3fKTg5XrtQqZuCfX_R9NT9_Dl6xqydAlRq_1MAsIEOn=w336-h382-s-no-gm?authuser=1" alt="foto do integrante Marcos">
+                                </a>
+                                <p>Marco Antônio de Oliveira Domingues</p>
+                            </div>
+                        </div>
                     </div>
                 """, unsafe_allow_html=True)
     st.divider()
+
+def show_footer_page() -> None:
     st.markdown(f"""<footer style='text-align: center; color: green; font-size: 24px;'><b> © {datetime.datetime.now().year} -  Todos os Direitos Reservados ao GPADS </b></footer>""", unsafe_allow_html=True)
 
 def main():
@@ -255,7 +333,7 @@ def main():
         layout="wide",
         page_title="Dashboard Análise de Desempenho",
         page_icon=":bar_chart:",
-        initial_sidebar_state="auto"
+        initial_sidebar_state="collapsed"
     )
     
     # Título do aplicativo
@@ -298,6 +376,8 @@ def main():
     except:
         st.error("Não foi possível exibir o dashboard")
     
+    # Equipe de desenvolvimento
+    show_development_team()
     # Footer
     show_footer_page()
 
